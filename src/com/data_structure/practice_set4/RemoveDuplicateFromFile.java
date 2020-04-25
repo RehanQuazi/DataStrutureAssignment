@@ -38,29 +38,29 @@ public class RemoveDuplicateFromFile {
 	
 	static void removeDuplicates(BufferedReader file) throws IOException {
 		set=new LinkedHashSet<NamePair>();
-		boolean duplicate=false;
-		NamePair line=new NamePair(file.readLine());
+		NamePair name=null;
+		String line=file.readLine();
 		if(set.size()==0) {
-			set.add(line);
-		}else
+			set.add(new NamePair(line));
+		}
+		
+		while(line!=null)
 		{
-			while(line!=null)
-		{
+			boolean duplicate=false;
+			name=new NamePair(line);
 			Iterator<NamePair> itr=set.iterator();
 			while(itr.hasNext()) {
 				NamePair obj=itr.next();
-				if(line.equals(obj)) {
+				if(name.equals(obj)) {
 					duplicate=true;
 					break;
 				}
 			}
-			
-		if(!duplicate) {
-			set.add(line);
-			line=new NamePair(file.readLine());
+			if(!duplicate) 
+				set.add(name);
+			line=file.readLine();
 		}
-		}
-		}
+		
 	}
 	
 	public static void main(String[] args) throws IOException {
